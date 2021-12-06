@@ -520,12 +520,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 2615860662098585941, guid: a59e00f395bf17847a9c7bb3bf81f597, type: 3}
-  - {fileID: 2771306090900513340, guid: 7177ba9811a61374094ed89a0cfb6104, type: 3}
-  - {fileID: 7329732346304520082, guid: b26d344187de3504688a4496f61166e6, type: 3}
-  - {fileID: 4977005359446066731, guid: 0e22d1dd05ca0be47a5b4a1c7236f797, type: 3}
-  - {fileID: 5557063483148613155, guid: 5bcb40805c5007942b4b7eb2d231341e, type: 3}
   placementArea: {x: -10, y: 10}
-  maxObjectsToSpawn: 50
+  maxObjectsToSpawn: 1
 --- !u!114 &1492221809
 MonoBehaviour:
   m_ObjectHideFlags: 0

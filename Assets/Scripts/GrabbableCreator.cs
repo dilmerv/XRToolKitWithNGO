@@ -18,7 +18,8 @@ public class GrabbableCreator : NetworkBehaviour
         {
             for (int i = 0; i < maxObjectsToSpawn; i++)
             {
-                GameObject go = Instantiate(prefabs[Random.Range(0, prefabs.Length)], Vector3.zero, Quaternion.identity);
+                //prefabs[Random.Range(0, prefabs.Length)]
+                GameObject go = Instantiate(prefabs[0], Vector3.zero, Quaternion.identity);
                 go.transform.position = new Vector3(Random.Range(placementArea.x, placementArea.y), 0,
                     Random.Range(placementArea.x, placementArea.y));
 
