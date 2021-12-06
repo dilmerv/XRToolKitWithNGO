@@ -22,7 +22,7 @@ public class SceneTransitionHandler : Singleton<SceneTransitionHandler>
 
     private int m_numberOfClientLoaded;
     
-    public bool StartAsServer { get; set; }
+    public bool InitializeAsHost { get; set; }
 
     /// <summary>
     /// Example scene states
