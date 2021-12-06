@@ -329,7 +329,7 @@ MonoBehaviour:
   MessageBufferSize: 5120
   MaxConnections: 100
   MaxSentMessageQueueSize: 128
-  ConnectAddress: 127.0.0.1
+  ConnectAddress: 192.168.0.84
   ConnectPort: 7777
   ServerListenPort: 7777
   MessageSendMode: 0
