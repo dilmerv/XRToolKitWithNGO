@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
+using DilmerGames.Core.Singletons;
 
-public class SceneTransitionHandler : NetworkBehaviour
+public class SceneTransitionHandler : Singleton<SceneTransitionHandler>
 {
     static public SceneTransitionHandler sceneTransitionHandler { get; internal set; }
 
@@ -21,6 +22,8 @@ public class SceneTransitionHandler : NetworkBehaviour
 
     private int m_numberOfClientLoaded;
     
+    public bool StartAsServer { get; set; }
+
     /// <summary>
     /// Example scene states
     /// </summary>
@@ -74,10 +77,10 @@ public class SceneTransitionHandler : NetworkBehaviour
     }
 
     /// <summary>
-    /// Start
+    /// Initialize
     /// Loads the default main menu when started (this should always be a component added to the networking manager)
     /// </summary>
-    private void Start()
+    public void Initialize()
     {
         if(m_SceneState == SceneStates.Init)
         {
