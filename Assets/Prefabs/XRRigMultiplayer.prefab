@@ -197,7 +197,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.36144
+  m_Height: 1.3405845
   m_Radius: 0.1
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -1393,7 +1393,7 @@ GameObject:
   - component: {fileID: 7606680510865970983}
   - component: {fileID: 7606680510865970977}
   - component: {fileID: 3176850369217905869}
-  - component: {fileID: 7903973603472725940}
+  - component: {fileID: 7603261968261779444}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1564,7 +1564,7 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &7903973603472725940
+--- !u!114 &7603261968261779444
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1573,7 +1573,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7606680510865970981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 54c9647dc784a46bca664910f182491e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SyncPositionX: 1
