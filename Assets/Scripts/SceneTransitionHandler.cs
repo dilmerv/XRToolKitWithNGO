@@ -24,6 +24,21 @@ public class SceneTransitionHandler : Singleton<SceneTransitionHandler>
     
     public bool InitializeAsHost { get; set; }
 
+    private void Update()
+    {
+        // for testing only
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            InitializeAsHost = true;
+            Initialize();
+        }
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            InitializeAsHost = false;
+            Initialize();
+        }
+    }
+
     /// <summary>
     /// Example scene states
     /// </summary>
@@ -52,6 +67,7 @@ public class SceneTransitionHandler : Singleton<SceneTransitionHandler>
         SetSceneState(SceneStates.Init);
     }
 
+    
     /// <summary>
     /// SetSceneState
     /// Sets the current scene state to help with transitioning.
