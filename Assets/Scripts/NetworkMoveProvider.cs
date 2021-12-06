@@ -3,14 +3,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class NetworkMoveProvider : ActionBasedContinuousMoveProvider
 {
-    private bool disableInput;
-
-    public bool DisableInput { get; set; }
+    [SerializeField]
+    public bool enableInputActions;
 
     protected override Vector2 ReadInput()
     {
-        if (disableInput) return Vector2.zero;
-
+        if (!enableInputActions) return Vector2.zero;
         return base.ReadInput();
     }
 }
