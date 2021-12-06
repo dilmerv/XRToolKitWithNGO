@@ -118,7 +118,7 @@ MonoBehaviour:
   m_GravityApplicationMode: 0
   m_ForwardSource: {fileID: 0}
   m_LeftHandMoveAction:
-    m_UseReference: 1
+    m_UseReference: 0
     m_Action:
       m_Name: Left Hand Move
       m_Type: 0
@@ -795,7 +795,7 @@ MonoBehaviour:
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
-  InLocalSpace: 0
+  InLocalSpace: 1
   Interpolate: 1
   CanCommitToTransform: 0
 --- !u!1 &7606680510200999322
@@ -1346,7 +1346,7 @@ MonoBehaviour:
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
-  InLocalSpace: 0
+  InLocalSpace: 1
   Interpolate: 1
   CanCommitToTransform: 0
 --- !u!1 &7606680510276719595
