@@ -5,18 +5,21 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class NetworkPlayer : NetworkBehaviour
 {
-    public override void OnNetworkSpawn() => EnableOrDisableClientInput();
+    [SerializeField]
+    private Vector2 placementArea = new Vector2(5.0f, 5.0f);
 
-    private void EnableOrDisableClientInput()
+    public override void OnNetworkSpawn() => DisableClientInput();
+
+    private void DisableClientInput()
     {
-        var clientMoveProvider = GetComponent<NetworkMoveProvider>();
-        var clientControllers = GetComponentsInChildren<ActionBasedController>();
-        var clientTurnProvider = GetComponent<ActionBasedSnapTurnProvider>();
-        var clientHead = GetComponentInChildren<TrackedPoseDriver>();
-        var clientCamera = GetComponentInChildren<Camera>();
-
         if (IsClient && !IsOwner)
         {
+            var clientMoveProvider = GetComponent<NetworkMoveProvider>();
+            var clientControllers = GetComponentsInChildren<ActionBasedController>();
+            var clientTurnProvider = GetComponent<ActionBasedSnapTurnProvider>();
+            var clientHead = GetComponentInChildren<TrackedPoseDriver>();
+            var clientCamera = GetComponentInChildren<Camera>();
+
             clientCamera.enabled = false; 
             clientMoveProvider.enableInputActions = false;
             clientTurnProvider.enableTurnAround = false;
@@ -28,6 +31,15 @@ public class NetworkPlayer : NetworkBehaviour
                 input.enableInputActions = false;
                 input.enableInputTracking = false;
             }
+        }
+    }
+
+    private void Start()
+    {
+        if (IsClient && IsOwner)
+        {
+            transform.position = new Vector3(Random.Range(0.0f, placementArea.x),
+                transform.position.y, Random.Range(0.0f, placementArea.y));
         }
     }
 }
