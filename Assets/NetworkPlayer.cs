@@ -9,10 +9,18 @@ public class NetworkPlayer : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         var moveProvider = GetComponent<NetworkMoveProvider>();
+        var actionbasedControllers = GetComponentsInChildren<ActionBasedController>();
+
+
         if (IsClient && !IsOwner)
         {
             moveProvider.DisableInput = true;
             GetComponentInChildren<Camera>().enabled = false;
+            foreach(var input in actionbasedControllers)
+            {
+                input.enableInputActions = false;
+                input.enableInputTracking = false;
+            }
         }
         else
         {
