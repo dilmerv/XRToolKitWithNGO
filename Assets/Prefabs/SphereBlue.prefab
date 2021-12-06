@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 5557063483148613157}
   - component: {fileID: 5557063483148613156}
   - component: {fileID: -582693242008337121}
-  - component: {fileID: 6526323767306192012}
-  - component: {fileID: -4550422078065296969}
+  - component: {fileID: 4528027336971121353}
+  - component: {fileID: 4141572098018033239}
   m_Layer: 0
   m_Name: SphereBlue
   m_TagString: Untagged
@@ -247,7 +247,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &6526323767306192012
+--- !u!114 &4528027336971121353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5557063483148613155}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 54c9647dc784a46bca664910f182491e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SyncPositionX: 1
@@ -274,7 +274,7 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   CanCommitToTransform: 0
---- !u!114 &-4550422078065296969
+--- !u!114 &4141572098018033239
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
