@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5794357481604736022}
   - component: {fileID: 5794357481604736023}
   - component: {fileID: 5794357481604736016}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5794357481604736018}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.087231904, y: 0.04234469, z: -0.4857256}
+  m_LocalPosition: {x: -0.087231904, y: 0.04234469, z: 0.4857256}
   m_LocalScale: {x: 0.09099, y: 0.14957, z: 0.1}
   m_Children: []
   m_Father: {fileID: 5794357481966267004}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 5794357481733832835}
   - component: {fileID: 5794357481733832844}
   - component: {fileID: 5794357481733832845}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5794357481733832846}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.08076811, y: 0.04234469, z: -0.4857256}
+  m_LocalPosition: {x: 0.08076811, y: 0.04234469, z: 0.4857256}
   m_LocalScale: {x: 0.09099, y: 0.14957, z: 0.1}
   m_Children: []
   m_Father: {fileID: 5794357481966267004}
@@ -284,7 +284,7 @@ Transform:
   m_GameObject: {fileID: 5794357482390318313}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 5794357481966267004}
   m_Father: {fileID: 0}
