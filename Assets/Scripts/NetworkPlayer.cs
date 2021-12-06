@@ -17,7 +17,7 @@ public class NetworkPlayer : NetworkBehaviour
 
         if (IsClient && !IsOwner)
         {
-            clientCamera.enabled = false;
+            clientCamera.enabled = false; 
             clientMoveProvider.enableInputActions = false;
             clientTurnProvider.enableTurnAround = false;
             clientTurnProvider.enableTurnLeftRight = false;
