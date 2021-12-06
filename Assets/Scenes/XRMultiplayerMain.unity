@@ -483,6 +483,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1492221807}
+  - component: {fileID: 1492221809}
   - component: {fileID: 1492221808}
   m_Layer: 0
   m_Name: GrabbableCreator
@@ -525,6 +526,22 @@ MonoBehaviour:
   - {fileID: 5557063483148613155, guid: 5bcb40805c5007942b4b7eb2d231341e, type: 3}
   placementArea: {x: -10, y: 10}
   maxObjectsToSpawn: 50
+--- !u!114 &1492221809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492221806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1566184982
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &1507252753
 GameObject:
   m_ObjectHideFlags: 0
