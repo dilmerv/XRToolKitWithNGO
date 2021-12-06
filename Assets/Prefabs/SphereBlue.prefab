@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5557063483148613156}
   - component: {fileID: -582693242008337121}
   - component: {fileID: 6526323767306192012}
+  - component: {fileID: -4550422078065296969}
   m_Layer: 0
   m_Name: SphereBlue
   m_TagString: Untagged
@@ -273,3 +274,15 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   CanCommitToTransform: 0
+--- !u!114 &-4550422078065296969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5557063483148613155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
