@@ -17,12 +17,14 @@ public class NetworkLobby : Singleton<NetworkLobby>
     {
         NetworkManager.Singleton.OnClientConnectedCallback += (clientId) =>
         {
-            collaboratorsConnected.Value++;
+            if(IsHost || IsServer)
+                collaboratorsConnected.Value++;
         };
 
         NetworkManager.Singleton.OnClientDisconnectCallback += (clientId) =>
         {
-            collaboratorsConnected.Value--;
+            if (IsHost || IsServer)
+                collaboratorsConnected.Value--;
         };
     }
 }
