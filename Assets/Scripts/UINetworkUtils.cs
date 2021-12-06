@@ -5,7 +5,7 @@ public class UINetworkUtils : MonoBehaviour
 {
     void Start()
     {
-        if (SceneTransitionHandler.Instance.StartAsServer)
+        if (SceneTransitionHandler.Instance.InitializeAsHost)
         {
             NetworkManager.Singleton.StartHost();
         }
