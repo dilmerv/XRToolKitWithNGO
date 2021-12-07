@@ -27,6 +27,8 @@ namespace Unity.Netcode.Samples
         protected override void Update()
         {
             base.Update();
+            CanCommitToTransform = IsOwner;
+
             if (NetworkManager.Singleton != null && (NetworkManager.Singleton.IsConnectedClient || NetworkManager.Singleton.IsListening))
             {
                 if (CanCommitToTransform)
