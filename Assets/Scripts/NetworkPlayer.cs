@@ -42,4 +42,21 @@ public class NetworkPlayer : NetworkBehaviour
                 transform.position.y, Random.Range(placementArea.x, placementArea.y));
         }
     }
+
+    public void OnSelectGrabbable(SelectEnterEventArgs eventArgs)
+    {
+        if (IsClient && IsOwner)
+        {
+            NetworkObject networkObjectSelected = eventArgs.interactableObject.transform.GetComponent<NetworkObject>();
+            if (networkObjectSelected != null)
+                RequestGrabbableOwnershipServerRpc(OwnerClientId, networkObjectSelected);
+        }
+    }
+
+    [ServerRpc]
+    public void RequestGrabbableOwnershipServerRpc(ulong newOwnerClientId, NetworkObjectReference networkObjectReference)
+    {
+        networkObjectReference.TryGet(out NetworkObject networkObject);
+        networkObject.ChangeOwnership(newOwnerClientId);
+    }
 }
