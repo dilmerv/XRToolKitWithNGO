@@ -500,7 +500,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1492221806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2895374, y: 0.90147686, z: 8.035196}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -521,7 +521,7 @@ MonoBehaviour:
   prefabs:
   - {fileID: 2615860662098585941, guid: a59e00f395bf17847a9c7bb3bf81f597, type: 3}
   placementArea: {x: -10, y: 10}
-  maxObjectsToSpawn: 1
+  maxObjectsToSpawn: 30
 --- !u!114 &1492221809
 MonoBehaviour:
   m_ObjectHideFlags: 0

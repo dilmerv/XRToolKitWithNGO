@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2615860662098585936}
   - component: {fileID: -5709455793566349940}
   - component: {fileID: 6282839426505974894}
-  - component: {fileID: 7096971840579535469}
+  - component: {fileID: 8663742172740041596}
   m_Layer: 0
   m_Name: CubeBlue
   m_TagString: Untagged
@@ -273,8 +273,8 @@ MonoBehaviour:
   ScaleThreshold: 0.01
   InLocalSpace: 0
   Interpolate: 1
-  CanCommitToTransform: 0
---- !u!114 &7096971840579535469
+  CanCommitToTransform: 1
+--- !u!114 &8663742172740041596
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

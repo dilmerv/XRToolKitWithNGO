@@ -57,6 +57,7 @@ public class NetworkPlayer : NetworkBehaviour
     public void RequestGrabbableOwnershipServerRpc(ulong newOwnerClientId, NetworkObjectReference networkObjectReference)
     {
         networkObjectReference.TryGet(out NetworkObject networkObject);
+        networkObject.RemoveOwnership();
         networkObject.ChangeOwnership(newOwnerClientId);
     }
 }
