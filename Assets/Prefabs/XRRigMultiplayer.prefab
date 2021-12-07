@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d341c648c7d73a0489e1e02a9714175b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placementArea: {x: 10, y: 10}
+  placementArea: {x: -10, y: 10}
 --- !u!114 &308436312880679287
 MonoBehaviour:
   m_ObjectHideFlags: 0
