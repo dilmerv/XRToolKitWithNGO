@@ -525,6 +525,7 @@ MonoBehaviour:
   - {fileID: 5557063483148613155, guid: 5bcb40805c5007942b4b7eb2d231341e, type: 3}
   - {fileID: 4977005359446066731, guid: 0e22d1dd05ca0be47a5b4a1c7236f797, type: 3}
   placementArea: {x: -10, y: 10}
+  prefabSizes: {x: 0.01, y: 1}
   maxObjectsToSpawn: 50
 --- !u!114 &1492221809
 MonoBehaviour:
