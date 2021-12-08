@@ -17,7 +17,6 @@ namespace Unity.Netcode.Samples
         /// This imposes state to the server. This is putting trust on your clients. Make sure no security-sensitive features use this transform.
         /// </summary>
         // This is public to make sure that users don't depend on this IsClient && IsOwner check in their code. If this logic changes in the future, we can make it invisible here
-
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
@@ -27,10 +26,11 @@ namespace Unity.Netcode.Samples
         protected override void Update()
         {
             base.Update();
-            CanCommitToTransform = IsOwner;
 
             if (NetworkManager.Singleton != null && (NetworkManager.Singleton.IsConnectedClient || NetworkManager.Singleton.IsListening))
             {
+                CanCommitToTransform = IsOwner;
+
                 if (CanCommitToTransform)
                 {
                     TryCommitTransformToServer(transform, NetworkManager.LocalTime.Time);
