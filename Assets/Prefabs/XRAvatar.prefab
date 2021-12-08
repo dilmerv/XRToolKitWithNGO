@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 7688686515227377819}
   - component: {fileID: 3416066204911509188}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: LogoXR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 3320110574578518992}
   - component: {fileID: 1166173823968735885}
   m_Layer: 0
-  m_Name: Text (TMP) (1)
+  m_Name: LogoDev
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -772,7 +772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5794357482390318312}
   m_Layer: 0
-  m_Name: Head
+  m_Name: XRAvatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

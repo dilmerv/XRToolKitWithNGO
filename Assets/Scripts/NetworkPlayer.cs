@@ -1,5 +1,4 @@
 using Unity.Netcode;
-using Unity.Netcode.Samples;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -57,8 +56,9 @@ public class NetworkPlayer : NetworkBehaviour
     [ServerRpc]
     public void RequestGrabbableOwnershipServerRpc(ulong newOwnerClientId, NetworkObjectReference networkObjectReference)
     {
-        networkObjectReference.TryGet(out NetworkObject networkObject);
-        networkObject.RemoveOwnership();
-        networkObject.ChangeOwnership(newOwnerClientId);
+        if (networkObjectReference.TryGet(out NetworkObject networkObject))
+        {
+            networkObject.ChangeOwnership(newOwnerClientId);
+        }
     }
 }

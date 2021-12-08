@@ -1681,7 +1681,7 @@ PrefabInstance:
     - target: {fileID: 5794357482390318313, guid: 39d08ffa504d7804c8a38817b323a0fa,
         type: 3}
       propertyPath: m_Name
-      value: Head
+      value: XRAvatar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39d08ffa504d7804c8a38817b323a0fa, type: 3}
