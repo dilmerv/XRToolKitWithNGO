@@ -9,6 +9,9 @@ public class NetworkPlayer : NetworkBehaviour
     private NetworkVariable<uint> agoraUserId = new NetworkVariable<uint>();
 
     [SerializeField]
+    private NetworkVariable<bool> overlayOverPlayer = new NetworkVariable<bool>();
+
+    [SerializeField]
     private Vector2 placementArea = new Vector2(-10.0f, 10.0f);
 
     public override void OnNetworkSpawn() => DisableClientInput();
@@ -52,16 +55,44 @@ public class NetworkPlayer : NetworkBehaviour
     {
         if (IsClient && !IsOwner) return;
 
-        if(agoraUserId.Value == 0 && AgoraVideoSetup.Instance.GetAgoraUserId() > 0)
+        if(Input.GetKeyDown(KeyCode.O))
         {
-            UpdateAgoraUserServerRpc(AgoraVideoSetup.Instance.GetAgoraUserId());
+            UpdateAgoraUserIdServerRpc(AgoraVideoSetup.Instance.GetAgoraUserId());
         }
     }
 
+    private void TogglePlayerOverlay()
+    {
+        Transform canvasScreen = GameObject.Find("Videos").transform;
+        var canvasPlayer = GetComponentInChildren<Canvas>().transform;
+
+        Transform playerVideo = canvasScreen.transform.Find($"{agoraUserId.Value}");
+
+        if (playerVideo != null)
+        {
+            playerVideo.transform.parent = canvasPlayer;
+        }
+        else // perhaps is on the player already
+        {
+            playerVideo = canvasPlayer.transform.Find($"{agoraUserId.Value}");
+            playerVideo.transform.parent = canvasScreen;
+        }
+
+        playerVideo.localPosition = new Vector3(0, 0, 0);
+        playerVideo.localRotation = new Quaternion(0, 0, -180, 0);
+    }
+
     [ServerRpc]
-    public void UpdateAgoraUserServerRpc(uint newAgoraUserId)
+    public void UpdateAgoraUserIdServerRpc(uint newAgoraUserId)
     {
         agoraUserId.Value = newAgoraUserId;
+        PlaceOverlayOnPlayersClientRpc();
+    }
+
+    [ClientRpc]
+    public void PlaceOverlayOnPlayersClientRpc()
+    {
+        TogglePlayerOverlay();
     }
 
     public void OnSelectGrabbable(SelectEnterEventArgs eventArgs)

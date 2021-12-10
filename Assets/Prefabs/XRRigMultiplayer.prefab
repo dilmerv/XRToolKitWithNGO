@@ -201,6 +201,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agoraUserId:
     m_InternalValue: 0
+  overlayOverPlayer:
+    m_InternalValue: 0
   placementArea: {x: -10, y: 10}
 --- !u!114 &308436312880679287
 MonoBehaviour:
