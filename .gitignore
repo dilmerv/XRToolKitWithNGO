@@ -38,5 +38,6 @@ sysinfo.txt
 *.unitypackage
 .DS_Store
 
-Packages/com.kyrylokuzyk.arfoundationremote
-ARFoundationRemoteCompanionApp/
+# Agora SDK
+Assets/AgoraEngine/*
+Assets/AgoraEngine.meta
