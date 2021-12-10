@@ -44,28 +44,44 @@ public class AgoraVideoSetup : MonoBehaviour
         {
             settingsReady = false;
         }
+        else
+        {
+            settingsReady = true;
+        }
 
         // join channel logic
         joinChannelButton.onClick.AddListener(() =>
         {
-            if (settingsReady)
-            {
-                AgoraUnityVideo.Instance.loadEngine(appId, token);
-                AgoraUnityVideo.Instance.join(channelName);
-
-                // we are good to go let's render our video
-                AgoraUnityVideo.Instance.makeImageSurface(localUser);
-            }
-            else
-            {
-                Logger.Instance.LogError("Agora [appId] or [channelName] need to be added");
-            }
+            StartAgora();
         });
+    }
+
+    private void StartAgora()
+    {
+        if (settingsReady)
+        {
+            AgoraUnityVideo.Instance.loadEngine(appId, token);
+            AgoraUnityVideo.Instance.join(channelName);
+
+            // we are good to go let's render our video
+            AgoraUnityVideo.Instance.makeImageSurface(localUser);
+        }
+        else
+        {
+            Logger.Instance.LogError("Agora [appId] or [channelName] need to be added");
+        }
     }
 
     void Update()
     {
         CheckPermissions();
+
+#if UNITY_EDITOR
+        if(Input.GetKey(KeyCode.A))
+        {
+            StartAgora();
+        }
+#endif
     }
     private void CheckPermissions()
     {

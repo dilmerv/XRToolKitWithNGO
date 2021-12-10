@@ -170,9 +170,8 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
     // implement engine callbacks
     private void onJoinChannelSuccess(string channelName, uint uid, int elapsed)
     {
-        Debug.Log("JoinChannelSuccessHandler: uid = " + uid);
-        GameObject textVersionGameObject = GameObject.Find("VersionText");
-        textVersionGameObject.GetComponent<Text>().text = "SDK Version : " + getSdkVersion();
+        Logger.Instance.LogInfo($"JoinChannelSuccessHandler: uid = {uid}");
+        Logger.Instance.LogInfo($"SDK Version : {getSdkVersion()}");
     }
 
     // When a remote user joined, this delegate will be called. Typically
@@ -261,15 +260,8 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
         // to be renderered onto
         go.AddComponent<RawImage>();
 
-        // make the object draggable
-        go.AddComponent<UIElementDragger>();
-
         // set up transform
         go.transform.Rotate(0f, 0.0f, 180.0f);
-        float xPos = Random.Range(Offset - Screen.width / 2f, Screen.width / 2f - Offset);
-        float yPos = Random.Range(Offset, Screen.height / 2f - Offset);
-        go.transform.localPosition = new Vector3(xPos, yPos, 0f);
-        go.transform.localScale = new Vector3(3f, 4f, 1f);
 
         // configure videoSurface
         VideoSurface videoSurface = go.AddComponent<VideoSurface>();
