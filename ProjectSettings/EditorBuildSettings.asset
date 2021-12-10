@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/XRMultiplayerMain.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/XRMultiplayerAgora.unity
+    guid: cd61789815c9feb43bb75279843a7553
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: ee5270afea1b2a940b99a3fc9884a2c6,
       type: 2}

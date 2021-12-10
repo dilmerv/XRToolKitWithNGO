@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using System;
 
-public class Logger : Singleton<Logger>
+public class Logger : NetworkSingleton<Logger>
 {
     [SerializeField]
     private TextMeshProUGUI debugAreaText = null;

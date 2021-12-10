@@ -393,10 +393,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 2615860662098585941, guid: a59e00f395bf17847a9c7bb3bf81f597, type: 3}
+  - {fileID: 2771306090900513340, guid: 7177ba9811a61374094ed89a0cfb6104, type: 3}
   placementArea: {x: -10, y: 10}
   prefabSizes: {x: 0.01, y: 1}
-  maxObjectsToSpawn: 50
+  maxObjectsToSpawn: 10
 --- !u!114 &1492221809
 MonoBehaviour:
   m_ObjectHideFlags: 0

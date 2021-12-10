@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using Unity.Netcode;
 using DilmerGames.Core.Singletons;
 
-public class SceneTransitionHandler : Singleton<SceneTransitionHandler>
+public class SceneTransitionHandler : NetworkSingleton<SceneTransitionHandler>
 {
     static public SceneTransitionHandler sceneTransitionHandler { get; internal set; }
 

@@ -620,7 +620,8 @@ MonoBehaviour:
   m_UpdateTrackingType: 0
   m_EnableInputTracking: 1
   m_EnableInputActions: 1
-  m_ModelPrefab: {fileID: 0}
+  m_ModelPrefab: {fileID: 1306640934352848695, guid: 8461ba66899f97b4993febf4902e9412,
+    type: 3}
   m_ModelParent: {fileID: 0}
   m_Model: {fileID: 0}
   m_AnimateModel: 0
@@ -1068,7 +1069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4097515f5eaefa47925055c097adfaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultMainMenu: XRMultiplayerMain
+  DefaultMainMenu: XRMultiplayerAgora
 --- !u!114 &314462044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1116,7 +1117,7 @@ MonoBehaviour:
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
     - Override: 0
-      Prefab: {fileID: 2615860662098585941, guid: a59e00f395bf17847a9c7bb3bf81f597,
+      Prefab: {fileID: 2771306090900513340, guid: 7177ba9811a61374094ed89a0cfb6104,
         type: 3}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
@@ -2698,7 +2699,8 @@ MonoBehaviour:
   m_UpdateTrackingType: 0
   m_EnableInputTracking: 1
   m_EnableInputActions: 1
-  m_ModelPrefab: {fileID: 0}
+  m_ModelPrefab: {fileID: 1306640934352848695, guid: 8461ba66899f97b4993febf4902e9412,
+    type: 3}
   m_ModelParent: {fileID: 0}
   m_Model: {fileID: 0}
   m_AnimateModel: 0
