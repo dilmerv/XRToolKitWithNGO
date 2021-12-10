@@ -20,9 +20,6 @@ public class AgoraVideoSetup : MonoBehaviour
     [SerializeField]
     private string token = "your_token"; // this is for demo purposes we must never expose a token
 
-    [SerializeField]
-    private GameObject localUser;
-
     private bool settingsReady;
 
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
