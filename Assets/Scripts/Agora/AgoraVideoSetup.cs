@@ -1,8 +1,7 @@
-using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 #if(UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
 using UnityEngine.Android;
-using UnityEngine.UI;
 #endif
 
 public class AgoraVideoSetup : MonoBehaviour
@@ -60,11 +59,11 @@ public class AgoraVideoSetup : MonoBehaviour
     {
         if (settingsReady)
         {
-            AgoraUnityVideo.Instance.loadEngine(appId, token);
-            AgoraUnityVideo.Instance.join(channelName);
+            AgoraUnityVideo.Instance.LoadEngine(appId, token);
+            AgoraUnityVideo.Instance.Join(channelName);
 
             // we are good to go let's render our video
-            AgoraUnityVideo.Instance.makeImageSurface(localUser);
+            AgoraUnityVideo.Instance.MakeImageVideoSurface(localUser);
         }
         else
         {
@@ -103,6 +102,6 @@ public class AgoraVideoSetup : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        AgoraUnityVideo.Instance.unloadEngine();
+        AgoraUnityVideo.Instance.UnloadEngine();
     }
 }

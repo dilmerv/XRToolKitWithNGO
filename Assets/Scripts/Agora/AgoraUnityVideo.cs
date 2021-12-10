@@ -1,57 +1,48 @@
 using agora_gaming_rtc;
-using agora_utilities;
 using DilmerGames.Core.Singletons;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
 {
-    // instance of agora engine
     private IRtcEngine mRtcEngine;
-    private Text MessageText;
 
-    // a token is a channel key that works with a AppID that requires it. 
-    // Generate one by your token server or get a temporary token from the developer console
     private string token;
 
-    // load agora engine
-    public void loadEngine(string appId, string token = null)
+    private int lastError;
+
+    public void LoadEngine(string appId, string token = null)
     {
-        // start sdk
-        Debug.Log("initializeEngine");
+        Logger.Instance.LogInfo("Loading Engine initialization");
         this.token = token;
 
         if (mRtcEngine != null)
         {
-            Debug.Log("Engine exists. Please unload it first!");
+            Logger.Instance.LogInfo("Engine exists. Please unload it first!");
             return;
         }
 
-        // init engine
         mRtcEngine = IRtcEngine.GetEngine(appId);
-
-        // enable log
         mRtcEngine.SetLogFilter(LOG_FILTER.DEBUG | LOG_FILTER.INFO | LOG_FILTER.WARNING | LOG_FILTER.ERROR | LOG_FILTER.CRITICAL);
     }
 
-    public void join(string channel)
+    public void Join(string channel)
     {
-        Debug.Log("calling join (channel = " + channel + ")");
+        Logger.Instance.LogInfo($"Calling join(channel = {channel})");
 
         if (mRtcEngine == null)
             return;
 
         // set callbacks (optional)
-        mRtcEngine.OnJoinChannelSuccess = onJoinChannelSuccess;
-        mRtcEngine.OnUserJoined = onUserJoined;
-        mRtcEngine.OnUserOffline = onUserOffline;
+        mRtcEngine.OnJoinChannelSuccess = OnJoinChannelSuccess;
+        mRtcEngine.OnUserJoined = OnUserJoined;
+        mRtcEngine.OnUserOffline = OnUserOffline;
         mRtcEngine.OnWarning = (int warn, string msg) =>
         {
-            Debug.LogWarningFormat("Warning code:{0} msg:{1}", warn, IRtcEngine.GetErrorDescription(warn));
+            Logger.Instance.LogWarning($"Warning code:{warn} msg:{IRtcEngine.GetErrorDescription(warn)}");
         };
-        mRtcEngine.OnError = HandleError;
 
-        // enable video
+        mRtcEngine.OnError = HandleError;
         mRtcEngine.EnableVideo();
         // allow camera output callback
         mRtcEngine.EnableVideoObserver();
@@ -65,31 +56,10 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
         mRtcEngine.JoinChannelByKey(channelKey: token, channelName: channel);
     }
 
-    public string getSdkVersion()
-    {
-        string ver = IRtcEngine.GetSdkVersion();
-        return ver;
-    }
-
-    public void leave()
-    {
-        Debug.Log("calling leave");
-
-        if (mRtcEngine == null)
-            return;
-
-        // leave channel
-        mRtcEngine.LeaveChannel();
-        // deregister video frame observers in native-c code
-        mRtcEngine.DisableVideoObserver();
-    }
-
     // unload agora engine
-    public void unloadEngine()
+    public void UnloadEngine()
     {
-        Debug.Log("calling unloadEngine");
-
-        // delete
+        Logger.Instance.LogInfo("Calling unloadEngine");
         if (mRtcEngine != null)
         {
             IRtcEngine.Destroy();  // Place this call in ApplicationQuit
@@ -112,85 +82,33 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
         }
     }
 
-    // accessing GameObject in Scnene1
-    // set video transform delegate for statically created GameObject
-    public void onSceneHelloVideoLoaded()
-    {
-        // Attach the SDK Script VideoSurface for video rendering
-        GameObject quad = GameObject.Find("Quad");
-        if (ReferenceEquals(quad, null))
-        {
-            Debug.Log("failed to find Quad");
-            return;
-        }
-        else
-        {
-            quad.AddComponent<VideoSurface>();
-        }
-
-        GameObject cube = GameObject.Find("Cube");
-        if (ReferenceEquals(cube, null))
-        {
-            Debug.Log("failed to find Cube");
-            return;
-        }
-        else
-        {
-            cube.AddComponent<VideoSurface>();
-        }
-
-        GameObject text = GameObject.Find("MessageText");
-        if (!ReferenceEquals(text, null))
-        {
-            MessageText = text.GetComponent<Text>();
-        }
-
-        GameObject bobj = GameObject.Find("HelpButton");
-        if (bobj != null)
-        {
-            Button button = bobj.GetComponent<Button>();
-            if (button != null)
-            {
-                button.onClick.AddListener(HandleHelp);
-            }
-        }
-
-    }
-
-    void HandleHelp()
-    {
-#if UNITY_2020_3_OR_NEWER && PLATFORM_STANDALONE_OSX
-        // this very easy to forget for MacOS
-        HandleError(-2, "if you don't see any video, did you set the MacOS plugin bundle to AnyCPU?");
-#else
-        HandleError(-1, "if you don't see any video, please check README for help");
-#endif
-    }
-
-    // implement engine callbacks
-    private void onJoinChannelSuccess(string channelName, uint uid, int elapsed)
+    // Implement engine callbacks
+    private void OnJoinChannelSuccess(string channelName, uint uid, int elapsed)
     {
         Logger.Instance.LogInfo($"JoinChannelSuccessHandler: uid = {uid}");
-        Logger.Instance.LogInfo($"SDK Version : {getSdkVersion()}");
+        Logger.Instance.LogInfo($"SDK Version : {IRtcEngine.GetSdkVersion()}");
     }
 
     // When a remote user joined, this delegate will be called. Typically
     // create a GameObject to render video on it
-    private void onUserJoined(uint uid, int elapsed)
+    private void OnUserJoined(uint uid, int elapsed)
     {
-        Debug.Log("onUserJoined: uid = " + uid + " elapsed = " + elapsed);
-        // this is called in main thread
+        Logger.Instance.LogInfo($"onUserJoined: uid = {uid} elapsed = {elapsed}");
 
         // find a game object to render video stream from 'uid'
-        GameObject go = GameObject.Find(uid.ToString());
-        if (!ReferenceEquals(go, null))
+        GameObject go = GameObject.Find("Videos");
+        GameObject childVideo = go.transform.Find($"{uid}")?.gameObject;
+
+        if (childVideo == null)
         {
-            return; // reuse
+            childVideo = new GameObject($"{uid}");
+            childVideo.transform.parent = go.transform;
         }
 
         // create a GameObject and assign to this new user
-        VideoSurface videoSurface = makeImageSurface(uid.ToString());
-        if (!ReferenceEquals(videoSurface, null))
+        VideoSurface videoSurface = MakeImageVideoSurface(childVideo);
+
+        if (videoSurface != null)
         {
             // configure videoSurface
             videoSurface.SetForUser(uid);
@@ -199,63 +117,7 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
         }
     }
 
-    public VideoSurface makePlaneSurface(string goName)
-    {
-        GameObject go = GameObject.CreatePrimitive(PrimitiveType.Plane);
-
-        if (go == null)
-        {
-            return null;
-        }
-        go.name = goName;
-        // set up transform
-        go.transform.Rotate(-90.0f, 0.0f, 0.0f);
-        float yPos = Random.Range(3.0f, 5.0f);
-        float xPos = Random.Range(-2.0f, 2.0f);
-        go.transform.position = new Vector3(xPos, yPos, 0f);
-        go.transform.localScale = new Vector3(0.25f, 0.5f, .5f);
-
-        // configure videoSurface
-        VideoSurface videoSurface = go.AddComponent<VideoSurface>();
-        return videoSurface;
-    }
-
-    private const float Offset = 100;
-
-    public VideoSurface makeImageSurface(string goName)
-    {
-        GameObject go = new GameObject();
-
-        if (go == null)
-        {
-            return null;
-        }
-
-        go.name = goName;
-
-        // to be renderered onto
-        go.AddComponent<RawImage>();
-
-        // make the object draggable
-        go.AddComponent<UIElementDragger>();
-        GameObject canvas = GameObject.Find("Canvas");
-        if (canvas != null)
-        {
-            go.transform.parent = canvas.transform;
-        }
-        // set up transform
-        go.transform.Rotate(0f, 0.0f, 180.0f);
-        float xPos = Random.Range(Offset - Screen.width / 2f, Screen.width / 2f - Offset);
-        float yPos = Random.Range(Offset, Screen.height / 2f - Offset);
-        go.transform.localPosition = new Vector3(xPos, yPos, 0f);
-        go.transform.localScale = new Vector3(3f, 4f, 1f);
-
-        // configure videoSurface
-        VideoSurface videoSurface = go.AddComponent<VideoSurface>();
-        return videoSurface;
-    }
-
-    public VideoSurface makeImageSurface(GameObject go)
+    public VideoSurface MakeImageVideoSurface(GameObject go)
     {
         // to be renderered onto
         go.AddComponent<RawImage>();
@@ -263,37 +125,29 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
         // set up transform
         go.transform.Rotate(0f, 0.0f, 180.0f);
 
-        // configure videoSurface
-        VideoSurface videoSurface = go.AddComponent<VideoSurface>();
-        return videoSurface;
+        return go.AddComponent<VideoSurface>();
     }
 
     // When remote user is offline, this delegate will be called. Typically
     // delete the GameObject for this user
-    private void onUserOffline(uint uid, USER_OFFLINE_REASON reason)
+    private void OnUserOffline(uint uid, USER_OFFLINE_REASON reason)
     {
+        Logger.Instance.LogInfo($"OnUserOffline: uid = {uid} reason = {reason}");
         // remove video stream
-        Debug.Log("onUserOffline: uid = " + uid + " reason = " + reason);
-        // this is called in main thread
         GameObject go = GameObject.Find(uid.ToString());
-        if (!ReferenceEquals(go, null))
+        if (go != null)
         {
             Object.Destroy(go);
         }
     }
 
-    #region Error Handling
-    private int LastError { get; set; }
     private void HandleError(int error, string msg)
     {
-        if (error == LastError)
-        {
-            return;
-        }
+        if (error == lastError) return;
 
         if (string.IsNullOrEmpty(msg))
         {
-            msg = string.Format("Error code:{0} msg:{1}", error, IRtcEngine.GetErrorDescription(error));
+            msg = string.Format($"Error code:{error} msg:{IRtcEngine.GetErrorDescription(error)}");
         }
 
         switch (error)
@@ -303,18 +157,7 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
                 break;
         }
 
-        Debug.LogError(msg);
-        if (MessageText != null)
-        {
-            if (MessageText.text.Length > 0)
-            {
-                msg = "\n" + msg;
-            }
-            MessageText.text += msg;
-        }
-
-        LastError = error;
+        Logger.Instance.LogError(msg);
+        lastError = error;
     }
-
-    #endregion
 }
