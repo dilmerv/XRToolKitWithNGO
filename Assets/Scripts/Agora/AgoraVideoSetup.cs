@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 #if(UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
@@ -48,10 +49,27 @@ public class AgoraVideoSetup : MonoBehaviour
             settingsReady = true;
         }
 
+        var joinButtonImage = joinChannelButton.GetComponent<Image>();
+        joinButtonImage.color = Color.green;
+
         // join channel logic
         joinChannelButton.onClick.AddListener(() =>
         {
-            StartAgora();
+            var buttonText = joinChannelButton
+                .GetComponentInChildren<TextMeshProUGUI>();
+
+            if (buttonText.text.Contains("join"))
+            {
+                StartAgora();
+                buttonText.text = "Leave Channel";
+                joinButtonImage.color = Color.red;
+            }
+            else
+            {
+                AgoraUnityVideo.Instance.Leave();
+                buttonText.text = "Join Channel";
+                joinButtonImage.color = Color.green;
+            }
         });
     }
 
@@ -59,10 +77,10 @@ public class AgoraVideoSetup : MonoBehaviour
     {
         if (settingsReady)
         {
+            CheckPermissions();
+
             AgoraUnityVideo.Instance.LoadEngine(appId, token);
             AgoraUnityVideo.Instance.Join(channelName);
-
-            // we are good to go let's render our video
             AgoraUnityVideo.Instance.MakeImageVideoSurface(localUser);
         }
         else
@@ -73,8 +91,6 @@ public class AgoraVideoSetup : MonoBehaviour
 
     void Update()
     {
-        CheckPermissions();
-
 #if UNITY_EDITOR
         if(Input.GetKey(KeyCode.A))
         {
@@ -82,6 +98,7 @@ public class AgoraVideoSetup : MonoBehaviour
         }
 #endif
     }
+
     private void CheckPermissions()
     {
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)

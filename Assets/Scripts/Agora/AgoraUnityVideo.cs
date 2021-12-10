@@ -56,6 +56,19 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
         mRtcEngine.JoinChannelByKey(channelKey: token, channelName: channel);
     }
 
+    public void Leave()
+    {
+        Logger.Instance.LogInfo("Leaving channel");
+
+        if (mRtcEngine == null)
+            return;
+
+        mRtcEngine.LeaveChannel();
+
+        // deregister video frame observers in native-c code
+        mRtcEngine.DisableVideoObserver();
+    }
+
     // unload agora engine
     public void UnloadEngine()
     {
