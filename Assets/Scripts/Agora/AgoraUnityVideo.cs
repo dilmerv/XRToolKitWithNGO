@@ -152,7 +152,7 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
         go.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         var rectTransform = go.GetComponent<RectTransform>();
         
-        rectTransform.sizeDelta = new Vector2(80.0f, 60.0f);
+        rectTransform.sizeDelta = new Vector2(60.0f, 50.0f);
         rectTransform.localPosition = new Vector3(rectTransform.position.x,
             rectTransform.position.y, 0);
 

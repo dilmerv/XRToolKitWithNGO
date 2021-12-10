@@ -9,10 +9,13 @@ public class NetworkPlayer : NetworkBehaviour
     private NetworkVariable<uint> agoraUserId = new NetworkVariable<uint>();
 
     [SerializeField]
-    private NetworkVariable<bool> overlayOverPlayer = new NetworkVariable<bool>();
+    private Vector2 placementArea = new Vector2(-10.0f, 10.0f);
 
     [SerializeField]
-    private Vector2 placementArea = new Vector2(-10.0f, 10.0f);
+    private GameObject normalAvatar;
+
+    [SerializeField]
+    private GameObject videoHeadAvatar;
 
     public override void OnNetworkSpawn() => DisableClientInput();
 
@@ -76,11 +79,15 @@ public class NetworkPlayer : NetworkBehaviour
         if (playerVideo != null)
         {
             playerVideo.transform.parent = canvasPlayer;
+            normalAvatar.SetActive(false);
+            videoHeadAvatar.SetActive(true);
         }
         else // perhaps is on the player already
         {
             playerVideo = canvasPlayer.transform.Find($"{agoraUserId.Value}");
             playerVideo.transform.parent = canvasScreen;
+            normalAvatar.SetActive(true);
+            videoHeadAvatar.SetActive(false);
         }
 
         playerVideo.localPosition = new Vector3(0, 0, 0);
