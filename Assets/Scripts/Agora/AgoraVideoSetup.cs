@@ -1,7 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-#if(UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
+using System.Collections;
+#if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
 using UnityEngine.Android;
 #endif
 
