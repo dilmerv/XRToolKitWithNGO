@@ -138,7 +138,16 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
     public VideoSurface MakeImageVideoSurface(GameObject go)
     {
         go.AddComponent<RawImage>();
-        go.transform.Rotate(0f, 0.0f, 180.0f);
+        go.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        var rectTransform = go.GetComponent<RectTransform>();
+        
+        rectTransform.sizeDelta = new Vector2(80.0f, 60.0f);
+        rectTransform.localPosition = new Vector3(rectTransform.position.x,
+            rectTransform.position.y, 0);
+
+        rectTransform.localRotation = new Quaternion(0, rectTransform.localRotation.y,
+            -180.0f, rectTransform.localRotation.w);
+
         return go.AddComponent<VideoSurface>();
     }
 
