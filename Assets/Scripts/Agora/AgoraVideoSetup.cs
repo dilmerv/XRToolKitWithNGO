@@ -2,11 +2,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using DilmerGames.Core.Singletons;
+using System;
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
 using UnityEngine.Android;
 #endif
 
-public class AgoraVideoSetup : MonoBehaviour
+public class AgoraVideoSetup : Singleton<AgoraVideoSetup>
 {
     public enum ChannelActions
     {
@@ -73,7 +75,10 @@ public class AgoraVideoSetup : MonoBehaviour
         });
     }
 
-    private void StartAgora()
+    public uint GetAgoraUserId() => AgoraUnityVideo.Instance
+        .LocalUserId;
+
+    public void StartAgora()
     {
         if (settingsReady)
         {

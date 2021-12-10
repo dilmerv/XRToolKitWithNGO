@@ -11,7 +11,12 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
 
     private int lastError;
 
-    private string localUserId;
+    private uint localUserId;
+
+    public uint LocalUserId
+    {
+        get => localUserId;
+    }
 
     public void LoadEngine(string appId, string token = null)
     {
@@ -69,7 +74,7 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
         // deregister video frame observers in native-c code
         mRtcEngine.DisableVideoObserver();
 
-        GameObject go = GameObject.Find(localUserId);
+        GameObject go = GameObject.Find($"{localUserId}");
         if (go != null) Destroy(go);
     }
 
@@ -98,7 +103,7 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
     // Implement engine callbacks
     private void OnJoinChannelSuccess(string channelName, uint uid, int elapsed)
     {
-        localUserId = uid.ToString();
+        localUserId = uid;
         Logger.Instance.LogInfo($"OnJoinChannelSuccess: uid = {uid}");
         Logger.Instance.LogInfo($"SDK Version : {IRtcEngine.GetSdkVersion()}");
 
