@@ -8,6 +8,12 @@ using UnityEngine.Android;
 
 public class AgoraVideoSetup : MonoBehaviour
 {
+    public enum ChannelActions
+    {
+        JOIN,
+        LEAVE
+    }
+
     [SerializeField]
     private Button joinChannelButton;
 
@@ -39,13 +45,9 @@ public class AgoraVideoSetup : MonoBehaviour
     void Start()
     {
         if(string.IsNullOrEmpty(appId) || string.IsNullOrEmpty(channelName))
-        {
             settingsReady = false;
-        }
         else
-        {
             settingsReady = true;
-        }
 
         var joinButtonImage = joinChannelButton.GetComponent<Image>();
         joinButtonImage.color = Color.green;
@@ -56,17 +58,17 @@ public class AgoraVideoSetup : MonoBehaviour
             var buttonText = joinChannelButton
                 .GetComponentInChildren<TextMeshProUGUI>();
 
-            if (buttonText.text.Contains("join"))
+            if (buttonText.text.Contains($"{ChannelActions.JOIN}"))
             {
                 StartAgora();
-                buttonText.text = "Leave Channel";
-                joinButtonImage.color = Color.red;
+                buttonText.text = $"{ChannelActions.LEAVE} CHANNEL";
+                joinButtonImage.color = Color.yellow;
             }
             else
             {
                 AgoraUnityVideo.Instance.Leave();
-                buttonText.text = "Join Channel";
-                joinButtonImage.color = Color.green;
+                buttonText.text = $"{ChannelActions.JOIN} CHANNEL";
+                joinButtonImage.color = Color.white;
             }
         });
     }
@@ -76,23 +78,17 @@ public class AgoraVideoSetup : MonoBehaviour
         if (settingsReady)
         {
             CheckPermissions();
-
             AgoraUnityVideo.Instance.LoadEngine(appId, token);
             AgoraUnityVideo.Instance.Join(channelName);
         }
         else
-        {
             Logger.Instance.LogError("Agora [appId] or [channelName] need to be added");
-        }
     }
 
     void Update()
     {
 #if UNITY_EDITOR
-        if(Input.GetKey(KeyCode.A))
-        {
-            StartAgora();
-        }
+        if(Input.GetKey(KeyCode.A)) StartAgora();
 #endif
     }
 
