@@ -14,6 +14,7 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
     public void LoadEngine(string appId, string token = null)
     {
         Logger.Instance.LogInfo("Loading Engine initialization");
+
         this.token = token;
 
         if (mRtcEngine != null)
@@ -30,8 +31,7 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
     {
         Logger.Instance.LogInfo($"Calling join(channel = {channel})");
 
-        if (mRtcEngine == null)
-            return;
+        if (mRtcEngine == null) return;
 
         // set callbacks (optional)
         mRtcEngine.OnJoinChannelSuccess = OnJoinChannelSuccess;
@@ -44,6 +44,7 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
 
         mRtcEngine.OnError = HandleError;
         mRtcEngine.EnableVideo();
+
         // allow camera output callback
         mRtcEngine.EnableVideoObserver();
 
@@ -59,9 +60,7 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
     public void Leave()
     {
         Logger.Instance.LogInfo("Leaving channel");
-
-        if (mRtcEngine == null)
-            return;
+        if (mRtcEngine == null) return;
 
         mRtcEngine.LeaveChannel();
 
@@ -85,21 +84,20 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
         if (mRtcEngine != null)
         {
             if (!pauseVideo)
-            {
                 mRtcEngine.EnableVideo();
-            }
             else
-            {
                 mRtcEngine.DisableVideo();
-            }
         }
     }
 
     // Implement engine callbacks
     private void OnJoinChannelSuccess(string channelName, uint uid, int elapsed)
     {
-        Logger.Instance.LogInfo($"JoinChannelSuccessHandler: uid = {uid}");
+        Logger.Instance.LogInfo($"OnJoinChannelSuccess: uid = {uid}");
         Logger.Instance.LogInfo($"SDK Version : {IRtcEngine.GetSdkVersion()}");
+
+        GameObject childVideo = GetChildVideoLocation(uid);
+        MakeImageVideoSurface(childVideo);
     }
 
     // When a remote user joined, this delegate will be called. Typically
@@ -108,15 +106,7 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
     {
         Logger.Instance.LogInfo($"onUserJoined: uid = {uid} elapsed = {elapsed}");
 
-        // find a game object to render video stream from 'uid'
-        GameObject go = GameObject.Find("Videos");
-        GameObject childVideo = go.transform.Find($"{uid}")?.gameObject;
-
-        if (childVideo == null)
-        {
-            childVideo = new GameObject($"{uid}");
-            childVideo.transform.parent = go.transform;
-        }
+        GameObject childVideo = GetChildVideoLocation(uid);
 
         // create a GameObject and assign to this new user
         VideoSurface videoSurface = MakeImageVideoSurface(childVideo);
@@ -130,14 +120,25 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
         }
     }
 
+    private static GameObject GetChildVideoLocation(uint uid)
+    {
+        // find a game object to render video stream from 'uid'
+        GameObject go = GameObject.Find("Videos");
+        GameObject childVideo = go.transform.Find($"{uid}")?.gameObject;
+
+        if (childVideo == null)
+        {
+            childVideo = new GameObject($"{uid}");
+            childVideo.transform.parent = go.transform;
+        }
+
+        return childVideo;
+    }
+
     public VideoSurface MakeImageVideoSurface(GameObject go)
     {
-        // to be renderered onto
         go.AddComponent<RawImage>();
-
-        // set up transform
         go.transform.Rotate(0f, 0.0f, 180.0f);
-
         return go.AddComponent<VideoSurface>();
     }
 
@@ -146,12 +147,8 @@ public class AgoraUnityVideo : Singleton<AgoraUnityVideo>
     private void OnUserOffline(uint uid, USER_OFFLINE_REASON reason)
     {
         Logger.Instance.LogInfo($"OnUserOffline: uid = {uid} reason = {reason}");
-        // remove video stream
         GameObject go = GameObject.Find(uid.ToString());
-        if (go != null)
-        {
-            Object.Destroy(go);
-        }
+        if (go != null) Destroy(go);
     }
 
     private void HandleError(int error, string msg)

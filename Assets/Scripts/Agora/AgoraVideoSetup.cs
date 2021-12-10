@@ -81,7 +81,6 @@ public class AgoraVideoSetup : MonoBehaviour
 
             AgoraUnityVideo.Instance.LoadEngine(appId, token);
             AgoraUnityVideo.Instance.Join(channelName);
-            AgoraUnityVideo.Instance.MakeImageVideoSurface(localUser);
         }
         else
         {
