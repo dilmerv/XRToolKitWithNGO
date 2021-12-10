@@ -55,9 +55,14 @@ public class NetworkPlayer : NetworkBehaviour
     {
         if (IsClient && !IsOwner) return;
 
-        if(Input.GetKeyDown(KeyCode.O))
+        if(agoraUserId.Value == 0)
         {
             UpdateAgoraUserIdServerRpc(AgoraVideoSetup.Instance.GetAgoraUserId());
+        }
+
+        if (Input.GetKeyDown(KeyCode.O) && (IsServer || IsHost))
+        {
+            PlaceOverlayOnPlayersClientRpc();
         }
     }
 
@@ -86,7 +91,6 @@ public class NetworkPlayer : NetworkBehaviour
     public void UpdateAgoraUserIdServerRpc(uint newAgoraUserId)
     {
         agoraUserId.Value = newAgoraUserId;
-        PlaceOverlayOnPlayersClientRpc();
     }
 
     [ClientRpc]
