@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using DilmerGames.Core.Singletons;
-using System;
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
 using UnityEngine.Android;
 #endif
@@ -30,12 +29,22 @@ public class AgoraVideoSetup : Singleton<AgoraVideoSetup>
 
     private bool settingsReady;
 
+    private TextMeshProUGUI joinChannelButtonText;
+
+    private Image joinChannelButtonImage;
+
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
     private ArrayList permissionList = new ArrayList();
 #endif
 
     void Awake()
     {
+        joinChannelButtonText = joinChannelButton
+                .GetComponentInChildren<TextMeshProUGUI>();
+
+        joinChannelButtonImage = joinChannelButton.GetComponent<Image>();
+        joinChannelButtonImage.color = Color.green;
+
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
         permissionList.Add(Permission.Microphone);
         permissionList.Add(Permission.Camera);
@@ -51,26 +60,16 @@ public class AgoraVideoSetup : Singleton<AgoraVideoSetup>
         else
             settingsReady = true;
 
-        var joinButtonImage = joinChannelButton.GetComponent<Image>();
-        joinButtonImage.color = Color.green;
-
         // join channel logic
         joinChannelButton.onClick.AddListener(() =>
         {
-            var buttonText = joinChannelButton
-                .GetComponentInChildren<TextMeshProUGUI>();
-
-            if (buttonText.text.Contains($"{ChannelActions.JOIN}"))
+            if (joinChannelButtonText.text.Contains($"{ChannelActions.JOIN}"))
             {
                 StartAgora();
-                buttonText.text = $"{ChannelActions.LEAVE} CHANNEL";
-                joinButtonImage.color = Color.yellow;
             }
             else
             {
-                AgoraUnityVideo.Instance.Leave();
-                buttonText.text = $"{ChannelActions.JOIN} CHANNEL";
-                joinButtonImage.color = Color.white;
+                LeaveAgora();
             }
         });
     }
@@ -85,15 +84,27 @@ public class AgoraVideoSetup : Singleton<AgoraVideoSetup>
             CheckPermissions();
             AgoraUnityVideo.Instance.LoadEngine(appId, token);
             AgoraUnityVideo.Instance.Join(channelName);
+
+            joinChannelButtonText.text = $"{ChannelActions.LEAVE} CHANNEL";
+            var joinButtonImage = joinChannelButton.GetComponent<Image>();
+            joinButtonImage.color = Color.yellow;
         }
         else
             Logger.Instance.LogError("Agora [appId] or [channelName] need to be added");
     }
 
+    public void LeaveAgora()
+    {
+        AgoraUnityVideo.Instance.Leave();
+        joinChannelButtonText.text = $"{ChannelActions.JOIN} CHANNEL";
+        joinChannelButtonImage.color = Color.white;
+    }
+
     void Update()
     {
 #if UNITY_EDITOR
-        if(Input.GetKey(KeyCode.A)) StartAgora();
+        if (Input.GetKey(KeyCode.S)) StartAgora();
+        if (Input.GetKey(KeyCode.L)) LeaveAgora();
 #endif
     }
 
