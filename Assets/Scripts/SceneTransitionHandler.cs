@@ -59,6 +59,8 @@ public class SceneTransitionHandler : NetworkSingleton<SceneTransitionHandler>
     /// </summary>
     private void Awake()
     {
+        Debug.Log("Starting SceneTransitionHandler");
+
         if(sceneTransitionHandler != this && sceneTransitionHandler != null)
         {
             GameObject.Destroy(sceneTransitionHandler.gameObject);
@@ -75,6 +77,7 @@ public class SceneTransitionHandler : NetworkSingleton<SceneTransitionHandler>
     /// <param name="sceneState"></param>
     public void SetSceneState(SceneStates sceneState)
     {
+        Debug.Log("SetSceneState on SceneTransitionHandler");
         m_SceneState = sceneState;
         if(OnSceneStateChanged != null)
         {
@@ -98,7 +101,8 @@ public class SceneTransitionHandler : NetworkSingleton<SceneTransitionHandler>
     /// </summary>
     public void Initialize()
     {
-        if(m_SceneState == SceneStates.Init)
+        Debug.Log("Initialize on SceneTransitionHandler");
+        if (m_SceneState == SceneStates.Init)
         {
             SceneManager.LoadScene(DefaultMainMenu);
         }
