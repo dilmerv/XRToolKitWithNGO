@@ -949,7 +949,7 @@ MonoBehaviour:
   joinChannelButton: {fileID: 1554295160}
   appId: dae5f20ffb47432c9759fa48fcffb847
   channelName: dilmer-xr
-  token: 006dae5f20ffb47432c9759fa48fcffb847IABAsvdwTd1WEa8Id2FXJHB/7AYgoD9jlQyQT1BzN2/vPPTjwikAAAAAEABhfJB/Fv+zYQEAAQAW/7Nh
+  token: 006dae5f20ffb47432c9759fa48fcffb847IACTkFmON6f9A7s/Ii9F59AyTpFxWwUopNqsdBdEOZS9nPTjwikAAAAAEAC0DMoWDq/EYQEAAQAPr8Rh
 --- !u!114 &3388753005077234600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1289,7 +1289,7 @@ PrefabInstance:
     - target: {fileID: 8591145308373510913, guid: bf0966989d68f464eb979af2de35be05,
         type: 3}
       propertyPath: m_Name
-      value: Logger
+      value: DebugArea
       objectReference: {fileID: 0}
     - target: {fileID: 8591145308373510925, guid: bf0966989d68f464eb979af2de35be05,
         type: 3}
